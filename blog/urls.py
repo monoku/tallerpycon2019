@@ -1,5 +1,7 @@
-from django.urls import path
+from django.urls import include, path
 from . import views
+from django.conf import settings
+
 
 urlpatterns = [
     path('', views.post_list, name='post_list'),
@@ -10,3 +12,14 @@ urlpatterns = [
     path('post/<pk>/publish/', views.post_publish, name='post_publish'),
     path('post/<pk>/remove/', views.post_remove, name='post_remove'),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+
+        # For django versions before 2.0:
+        # url(r'^__debug__/', include(debug_toolbar.urls)),
+
+    ] + urlpatterns
+    

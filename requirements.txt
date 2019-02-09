@@ -1,1 +1,11 @@
-Django~=2.0
+Django==2.1.5
+django-autofixture==0.12.1
+django-debug-toolbar==1.11
+django-extensions==2.1.5
+newrelic==4.12.0.113
+pytz==2018.9
+six==1.12.0
+sqlparse==0.2.4
+psycopg2
+gunicorn
+gevent
