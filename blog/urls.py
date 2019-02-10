@@ -11,7 +11,7 @@ urlpatterns = [
     path('drafts/', views.post_draft_list, name='post_draft_list'),
     path('post/<pk>/publish/', views.post_publish, name='post_publish'),
     path('post/<pk>/remove/', views.post_remove, name='post_remove'),
-    path('loaderio-<id>', views.verify_domain, name='verify_domain'),
+    path('loaderio-<id>/', views.verify_domain, name='verify_domain'),
 ]
 
 if settings.DEBUG:
