@@ -9,3 +9,6 @@ sqlparse==0.2.4
 psycopg2
 gunicorn
 gevent
+redis
+django-redis
+hiredis

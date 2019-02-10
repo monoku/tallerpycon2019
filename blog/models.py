@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from django.core.cache import cache
 
 
 class Post(models.Model):
@@ -16,7 +17,11 @@ class Post(models.Model):
 
     def count_comments(self):
         # return 1
-        return self.comments.count()
+        count = cache.get(f'comments_{self.id}')
+        if count is None:
+            count = self.comments.count()
+            cache.set(f'comments_{self.id}', count)
+        return count
 
     def __str__(self):
         return str(self.id)

@@ -3,8 +3,10 @@ from django.utils import timezone
 from .models import Post
 from .forms import PostForm
 from django.http import HttpResponse
+from django.views.decorators.cache import cache_page
 
 
+# @cache_page(100)
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
     last_visit = request.session.get('last_visit')
