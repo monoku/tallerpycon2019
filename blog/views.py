@@ -6,9 +6,9 @@ from django.http import HttpResponse
 from django.views.decorators.cache import cache_page
 
 
-# @cache_page(100)
+@cache_page(100)
 def post_list(request):
-    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')
+    posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-published_date')[:10]
     last_visit = request.session.get('last_visit')
     new_articles = 0
     if last_visit:
