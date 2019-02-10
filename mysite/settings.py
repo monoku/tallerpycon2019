@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import redis
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = '^(-mz75w^nvi!tg+ad9(y=j6((^s!zi3^w*6^=qetp+%+f42!g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', '*.monoku.com']
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com', '.monoku.com']
 
 
 # Application definition
@@ -145,3 +146,23 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
+REDIS_URL = 'redis://redis:6379/'
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': '{}1'.format(REDIS_URL),
+        'OPTIONS': {
+            'DB': 1,
+            'CLIENT_CLASS': 'django_redis.client.ShardClient'
+        }
+    }
+}
+
+REDIS_DB = redis.Redis(
+    host='redis',
+    port=6379,
+)
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
