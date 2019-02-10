@@ -6,10 +6,17 @@ services:
   web:
     build: .
     # command: python manage.py runserver 0.0.0.0:8000
-    command: gunicorn --worker-class gevent -w 3 --log-level=error -b 0.0.0.0:8000 mysite.wsgi
+    
+    # command: gunicorn --worker-class gevent -w 3 --log-level=error -b 0.0.0.0:8000 mysite.wsgi
+    command: ./run.sh
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     depends_on:
       - db
+      - redis
+
+  redis:
+    image: redis
+    command: redis-server --save '' --appendonly 'no'
